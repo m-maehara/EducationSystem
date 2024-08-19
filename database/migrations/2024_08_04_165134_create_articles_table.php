@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('curriculum_progress', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('curriculumus_id');
-            $table->unsignedBigInteger('users_id');
-            $table->boolean('clear_flg')->default(false);
+        Schema::create('articles', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('title');
+            $table->dateTime('postet_date');
+            $table->longtext('article_contents');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('curriculum_progress');
+        Schema::dropIfExists('articles');
     }
 };
