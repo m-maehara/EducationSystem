@@ -1438,6 +1438,8 @@
         },
         {
             "name": "league/commonmark",
+
+
             "version": "2.5.3",
             "source": {
                 "type": "git",
@@ -1448,6 +1450,8 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/b650144166dfa7703e62a22e493b853b58d874b0",
                 "reference": "b650144166dfa7703e62a22e493b853b58d874b0",
+>>>>>>> b4bf99d5c9ae25f1f5d733e0c8416259010285df
+>>>>>>> b2a7dd1a055f43d849685594c79cc6d87cced6c6
                 "shasum": ""
             },
             "require": {
@@ -1540,7 +1544,11 @@
                     "type": "tidelift"
                 }
             ],
+
+
             "time": "2024-08-16T11:46:16+00:00"
+>>>>>>> b4bf99d5c9ae25f1f5d733e0c8416259010285df
+>>>>>>> b2a7dd1a055f43d849685594c79cc6d87cced6c6
         },
         {
             "name": "league/config",
