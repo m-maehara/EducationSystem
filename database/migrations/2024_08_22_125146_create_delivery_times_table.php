@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('delivery_times', function (Blueprint $table) {
-            $table->integer('id');
+            $table->id();
             $table->integer('curriculums_id');
             $table->datetime('delivery_from');
             $table->datetime('delivery_to');

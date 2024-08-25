@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('curriculums', function (Blueprint $table) {
-            $table->integer('id');
-            $table->string('title');
-            $table->string('thumbnail')->nullable();
+            $table->id();
+            $table->string('title' ,255);
+            $table->string('thumbnail' ,255)->nullable();
             $table->longText('description')->nullable();
             $table->mediumText('video_url')->nullable();
-            $table->tinyInteger('alway_delivery_flg' , 4);
-            $table->integer('grade_id' , 10)->nullable();
-            $table->timestamps()->nullable();
+            $table->tinyInteger('alway_delivery_flg');
+            $table->integer('grade_id')->nullable();
+            $table->timestamps();
         });
     }
 
