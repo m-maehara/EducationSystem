@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('classes_clear_checks_tabls', function (Blueprint $table) {
+        Schema::create('classes_clear_checks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('grade_id');
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes_clear_checks_tabls');
+        Schema::dropIfExists('classes_clear_checks');
     }
 };
