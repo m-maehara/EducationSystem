@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('title');
             $table->dateTime('posted_date');
             $table->longtext('article_contents');
