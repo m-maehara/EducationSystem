@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class BannerController extends Controller
 {
-    //
+    public function showBannerEdit()
+    {
+        return view('banner_edit');
+    }
 }

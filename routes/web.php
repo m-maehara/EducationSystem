@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\CurriculumController;
 
-use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\Admin\RegisterController;
+use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\TopController;
 use App\Http\Controllers\Admin\BannerController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +28,33 @@ Route::get('/', function () {
 
 //ユーザー画面
 Route::prefix('user')->namespace('User')->name('user.')->group(function () {
-    Route::get('/curriculum_list', 'CurriculumController@showCurriculumList')->name('show.curriculum');
+    //承認機能
+    Route::middleware('auth:user')->group(function () {
+        Route::get('/curriculum_list', 'CurriculumController@showCurriculumList')->name('show.curriculum');
+    });
 });
 
 //管理画面
 Route::prefix('user')->namespace('Admin')->name('admin.')->group(function () {
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('show.login');
-    Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('show.register');
-    Route::get('/top', [TopController::class, 'showTop'])->name('show.top');
-    Route::get('/banner_edit', [BannerController::class, 'showBannerEdit'])->name('show.edit');
+    Route::namespace('Auth')->group(function () {
+        //新規ユーザー登録画面
+        Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('show.register');
+        Route::post('register_exe', [RegisterController::class, 'exeRegisterForm'])->name('exe.register');
+
+        //ログイン画面
+        Route::get('login', [LoginController::class, 'showLoginForm'])->name('show.login');
+        Route::post('login_exe', [LoginController::class, 'exeLoginForm'])->name('exe.login');
+    });
+
+    //承認機能
+    Route::middleware('auth:admin', 'check.approval')->group(function () {
+        Route::get('/top', [TopController::class, 'showTop'])->name('show.top');
+
+        Route::get('/banner_edit', [BannerController::class, 'showBannerEdit'])->name('show.banner.edit');
+        Route::post('/banner_update', [BannerController::class, 'showBannerUpdate'])->name('show.banner.update');
+        
+        //ログアウト
+        Route::post('logout', [LoginController::class, 'logout'])->name('exe.logout');
+    });
+
 });
