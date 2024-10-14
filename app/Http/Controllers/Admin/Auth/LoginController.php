@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth/login');
+        return view('admin/auth/login');
     }
 
     public function exeLoginForm(Request $request)
@@ -31,7 +31,7 @@ class LoginController extends Controller
         
         $email = $request->input('email');
         $password = $request->input('password');
-
+        
         if (Admin::attemptLogin($email, $password)) {
             //dd($email, $password,Admin::where('email', $email)->first()->id);
             return redirect()->route('admin.show.top')->with('success', 'ログインに成功しました');

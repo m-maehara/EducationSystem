@@ -17,11 +17,11 @@ class CheckApproval
      */
     public function handle(Request $request, Closure $next)
     {
+        // dd($request,$next,);
         if (Auth::guard('admin')->check()) {
             // すべてのユーザーを承認済みとする
             return $next($request);
         }
-    
         return redirect()->route('admin.show.login');
     }
 }

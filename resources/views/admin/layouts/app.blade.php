@@ -14,7 +14,7 @@
                 <a href="#">お知らせ管理</a>
             </div>
             <div class = "publicBannerManagement">
-                <a href="#">バナー管理</a>
+                <a href="{{ route('admin.show.banner.edit') }}">バナー管理</a>
             </div>
         </div>
         
@@ -27,6 +27,7 @@
     
     <div class = "contents">
         @yield('content')
+        @yield('scripts')
     </div>
 </body>
 </html>

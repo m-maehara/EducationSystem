@@ -28,10 +28,10 @@ Route::get('/', function () {
 
 //ユーザー画面
 Route::prefix('user')->namespace('User')->name('user.')->group(function () {
-    //承認機能
-    Route::middleware('auth:user')->group(function () {
-        Route::get('/curriculum_list', 'CurriculumController@showCurriculumList')->name('show.curriculum');
-    });
+    //承認機能 ----------------------------------------承認機能は別の方の担当のため、コメントアウト
+    //Route::middleware('auth:user')->group(function () {
+        Route::get('/curriculum_list', [CurriculumController::class, 'showCurriculumList'])->name('show.curriculum');
+    //});
 });
 
 //管理画面
@@ -47,11 +47,11 @@ Route::prefix('user')->namespace('Admin')->name('admin.')->group(function () {
     });
 
     //承認機能
-    Route::middleware('auth:admin', 'check.approval')->group(function () {
+    Route::middleware('auth:admin', 'check.admin.approval')->group(function () {
         Route::get('/top', [TopController::class, 'showTop'])->name('show.top');
 
         Route::get('/banner_edit', [BannerController::class, 'showBannerEdit'])->name('show.banner.edit');
-        Route::post('/banner_update', [BannerController::class, 'showBannerUpdate'])->name('show.banner.update');
+        Route::post('/banner_update', [BannerController::class, 'exeBannerEdit'])->name('exe.banner.edit');
         
         //ログアウト
         Route::post('logout', [LoginController::class, 'logout'])->name('exe.logout');

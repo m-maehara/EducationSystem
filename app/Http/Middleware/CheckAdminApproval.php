@@ -17,13 +17,19 @@ class CheckAdminApproval
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('admin')->check() && Auth::guard('admin')->user()->is_approved) {
-            \Log::info('User is approved.');
-            return $next($request);
-        }
+        // 承認のチェックをここで行う
+        if (!$this->isApproved($request)) {
 
-        // 承認されていない場合はリダイレクト
-        \Log::info('User not approved or not authenticated.');
-        return redirect()->route('admin.show.login')->with('error', '承認されていないユーザーです');
+            // 承認されていない場合の処理（例: エラーメッセージの表示やリダイレクト）
+            return response()->json(['error' => 'Access denied.'], 403);
+        }
+        
+        return $next($request);
+    }
+
+    // 承認チェックのためのメソッド（例）
+    protected function isApproved(Request $request)
+    {
+        return Auth::check();
     }
 }

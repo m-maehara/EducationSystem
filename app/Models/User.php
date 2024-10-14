@@ -41,4 +41,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // CurriculumProgressテーブルとのリレーション
+    public function curriculum_progress()
+    {
+        return $this->hasMany(CurriculumProgress::class);
+    }
+
+    // Gradeテーブルとのリレーション
+    public function  grades()
+    {
+        return $this->belongsTo(Grade::class, 'grade_id', 'id');
+    }
+
+    public static function getUsersWithGrades()
+    {
+        return self::with('grades')->find(1);//Modelの取得項目はuserの１を指定　本来はログインしているユーザーの学年を取得する。
+    }
 }
