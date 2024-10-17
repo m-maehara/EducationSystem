@@ -1,25 +1,11 @@
-.banner img {
-    width: 100%;
-    height: auto;
-}
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
 
-.banner-slider {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 水平方向に中央揃え */
-}
+// Variables
+@import 'variables';
 
-.banner-images {
-    display: flex;
-    justify-content: center; /* 水平方向に中央揃え */
-    align-items: center;    /* 垂直方向に中央揃え */
-    width: 100%;            /* 必要に応じて幅を調整 */
-}
-
-.banner-image {
-    max-width: 100%;
-    height: auto;
-}
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
 
 .banner-slider {
     position: relative;
@@ -63,4 +49,8 @@
 
 .dot.active {
     background-color: #717171;
+}
+
+body {
+    background-color: #f8f9fa;  /* 背景色をライトに */
 }
