@@ -21,7 +21,8 @@
         <div class = "logout">
             <form action="{{ route('admin.exe.logout') }}" method="post" class = "form">
             @csrf
-            <button type="submit">ログアウト</button>         
+            <button type="submit">ログアウト</button> 
+            </form>
         </div>
     </div>
     

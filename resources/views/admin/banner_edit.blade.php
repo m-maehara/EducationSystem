@@ -13,8 +13,12 @@
         <div class="bannerForm">
             <form action="{{ route('admin.exe.banner.edit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                
+                <!-- 削除するバナーIDを送信するための非表示フィールド -->
+                <input type="hidden" id="delete-banner-ids" name="delete_banner_ids" value="[]">
+                <input type="hidden" id="last-index" name="last_index" value="">
 
-                <div id="banner-list" class = "bannerList"></div>
+                <div id="banner-list" class="bannerList"></div>
 
                 <!-- 追加ボタン -->
                 <button type="button" id="add-banner" class="bannerAdd">+</button><br>
@@ -27,56 +31,190 @@
 @endsection
 
 @section('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // 現在の日付を取得して表示する
-            var currentDate = new Date();
-            updateScheduleView(currentDate);
+        $(document).ready(function () {
+            const banners = @json($banners);
+            const bannerList = $('#banner-list');
+            let deleteBanner = [];
+            let oloLastIndex = 0;
 
-            // ◀ ボタンのクリックイベント（前月）
-            $('.scheduleChangeLeft').on('click', function(e) {
-                e.preventDefault();
-                currentDate.setMonth(currentDate.getMonth() - 1); // 前月へ
-                updateScheduleView(currentDate);
-                fetchSchedule('prev'); // サーバーからデータを取得
+            // バナーテーブルの中身を取得
+            banners.forEach(function(banner){
+                addBannerHTML(banner.image,banner.id);
+                oloLastIndex = banner.id;
             });
-
-            // ▶ ボタンのクリックイベント（翌月）
-            $('.scheduleChangeRight').on('click', function(e) {
-                e.preventDefault();
-                currentDate.setMonth(currentDate.getMonth() + 1); // 翌月へ
-                updateScheduleView(currentDate);
-                fetchSchedule('next'); // サーバーからデータを取得
-            });
-
-            // スケジュールの非同期取得処理
-            function fetchSchedule(direction) {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRFトークンをヘッダーに含める
-                    },
-                    url: '/user/curriculum_list/schedule', // サーバーにリクエストを送るURL
-                    type: 'POST',
-                    data: {
-                        direction: direction,
-                        date: currentDate.toISOString().slice(0, 10) // 現在の日付を送信（フォーマット: YYYY-MM-DD）
-                    },
-                    success: function(response) {
-                        // 取得したスケジュールを画面に反映
-                        $('.scheduleMain').html(response.scheduleHtml);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error("Error:", errorThrown);
-                    }
-                });
+            
+            // hiddenでデータのidを取得する
+            document.getElementById('last-index').value = oloLastIndex;
+            
+            if(oloLastIndex > 0){
+                // 最後に取得したバナーid+1の値をlastIndexに格納
+                lastIndex = oloLastIndex + 1;
+            }else{
+                // lastIndexが取得できない場合1を代入
+                lastIndex = 1;
             }
 
-            // スケジュールの年月を更新
-            function updateScheduleView(date) {
-                var year = date.getFullYear();
-                var month = ("0" + (date.getMonth() + 1)).slice(-2); // 2桁の月表示
-                $('.scheduleChangeView').text(year + '年' + month + '月スケジュール');
+            // +ボタン押下で行を追加する
+            $('#add-banner').on('click', function() {
+                addBannerHTML('/EducationSystem/public/user/storage/images/banner/sample.jpg');
+            });
+
+            // bannerListに行を追加するメソッド
+            function addBannerHTML(image, index = lastIndex ++){
+                // HTML変数に行を格納
+                const HTML = `
+                    <div class="bannerRow" data-id="${index}">
+                        <img src="${image}" alt="banner image" class="bannerImage" width="100">
+                        <input type="file" name="banners[${index}][image]" class="bannerFile">
+                        <input type="hidden" name="banner_id" id="bannerId">
+                        <button type="button" class="bannerRemove">-</button>
+                    </div>
+                    `;
+                bannerList.append(HTML);  // 行を追加
+                console.log(HTML);
             }
+            
+            // バナーテーブルにデータがあった場合
+            if(oloLastIndex > 0){
+                // hiddenでデータのidを取得する
+                const bannerId = document.querySelector('.bannerRow').getAttribute('data-id');
+                document.getElementById('bannerId').value = bannerId;
+                console.log(bannerId);
+            }
+            
+
+            // ファイル選択を押下してファイルを取得する
+            $(document).on('change', '.bannerFile', function () {
+                const bannerDataId = $(this).closest('.bannerRow').data('id'); // 現在の行の data-id を取得
+                const file = this.files[0]; // 選択されたファイルを取得
+                console.log(bannerDataId);
+
+                if (file) {
+                    const reader = new FileReader();
+                    console.log(reader);
+                    reader.onload = function(e) {
+                        $(`.bannerRow[data-id="${bannerDataId}"]`).find('.bannerImage').attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(file); 
+                }
+            });
+
+
+
+            // -ボタンで行を削除
+            $(document).on('click', '.bannerRemove', function () {
+                const deleteRow = $(this).closest('.bannerRow');
+                const bannerId = $(this).closest('.bannerRow').data('id');
+
+                // 削除するバナーIDをリストに追加
+                deleteBanner.push(bannerId);
+
+                // 削除IDをフォームの非表示フィールドに反映
+                $('#delete-banner-ids').val(JSON.stringify(deleteBanner)); 
+
+                // 行を削除
+                deleteRow.remove();
+            });
+
+
+
         });
     </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <script>
+        $(document).ready(function () {
+            // 初期データの取得と表示
+            const banners = @json($banners); 
+            const bannerList = $('#banner-list');
+            let deleteBannerIds = []; // 削除するバナーIDリストの初期化
+            let lastIndex = 0;
+
+            // 初期データの追加
+            banners.forEach(function(banner) {
+                addBannerRow(banner.image, banner.id, banner.id);
+                lastIndex = banner.id;
+            });
+
+            lastIndex = lastIndex + 1;
+
+            // +ボタンのクリックイベント
+            $('#add-banner').on('click', function() {
+                addBannerRow('/EducationSystem/public/user/storage/images/banner/sample.jpg');
+            });
+
+            // 行追加関数
+            function addBannerRow(image, index = lastIndex++, bannerId = null) {
+                const row = `
+                    <div class="bannerRow" data-index="${index}" data-id="${bannerId}">
+                        <img src="${image}" alt="banner image" class="bannerImage" width="100">
+                        <input type="file" name="banners[${index}][image]" class="bannerFile">
+                        <input type="hidden" name="banners[${index}]" value="${bannerId}">
+                        <button type="button" class="bannerRemove">-</button>
+                    </div>
+                `;
+                console.log(row);
+                bannerList.append(row);
+            }
+
+            // ファイル選択時に画像を変更する処理
+            $(document).on('change', '.bannerFile', function () {
+                const fileInput = $(this);
+                const bannerRow = fileInput.closest('.bannerRow');
+                const bannerId = bannerRow.data('id'); // バナーのIDを取得
+
+                const file = this.files[0]; // 選択されたファイルを取得
+                if (file) {
+                    const reader = new FileReader();
+                    
+                    // ファイルが正常に読み込まれた場合の処理
+                    reader.onload = function (e) {
+                        // プレビュー画像のsrcにData URLを設定
+                        fileInput.siblings('.bannerImage').attr('src', e.target.result);
+                    };
+
+                    // ファイルをData URLとして読み込む
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // -ボタンで行を削除
+            $(document).on('click', '.bannerRemove', function () {
+                const rowToRemove = $(this).closest('.bannerRow');
+                const bannerId = rowToRemove.data('id');
+
+                // 削除するバナーIDをリストに追加
+                deleteBannerIds.push(bannerId);
+
+                // 削除IDをフォームの非表示フィールドに反映
+                $('#delete-banner-ids').val(JSON.stringify(deleteBannerIds));
+
+                // 行を削除
+                rowToRemove.remove();
+            });
+        });
+    </script> -->
+
 @endsection

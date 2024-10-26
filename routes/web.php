@@ -26,35 +26,36 @@ Route::get('/', function () {
 });'
 */
 
-//ユーザー画面
+// ユーザー画面
 Route::prefix('user')->namespace('User')->name('user.')->group(function () {
-    //承認機能 ----------------------------------------承認機能は別の方の担当のため、コメントアウト
-    //Route::middleware('auth:user')->group(function () {
+    // 承認機能 ----------------------------------------承認機能は別の方の担当のため、コメントアウト
+    // Route::middleware('auth:user')->group(function () {
         Route::get('/curriculum_list', [CurriculumController::class, 'showCurriculumList'])->name('show.curriculum');
-    //});
+    // });
 });
 
-//管理画面
+// 管理画面
 Route::prefix('user')->namespace('Admin')->name('admin.')->group(function () {
     Route::namespace('Auth')->group(function () {
-        //新規ユーザー登録画面
+        // 新規ユーザー登録画面
         Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('show.register');
         Route::post('register_exe', [RegisterController::class, 'exeRegisterForm'])->name('exe.register');
 
-        //ログイン画面
+        // ログイン画面
         Route::get('login', [LoginController::class, 'showLoginForm'])->name('show.login');
         Route::post('login_exe', [LoginController::class, 'exeLoginForm'])->name('exe.login');
     });
 
-    //承認機能
+    // 承認機能
     Route::middleware('auth:admin', 'check.admin.approval')->group(function () {
+        // トップ画面
         Route::get('/top', [TopController::class, 'showTop'])->name('show.top');
 
+        // バナー画面
         Route::get('/banner_edit', [BannerController::class, 'showBannerEdit'])->name('show.banner.edit');
         Route::post('/banner_update', [BannerController::class, 'exeBannerEdit'])->name('exe.banner.edit');
         
-        //ログアウト
+        // ログアウト
         Route::post('logout', [LoginController::class, 'logout'])->name('exe.logout');
     });
-
 });
