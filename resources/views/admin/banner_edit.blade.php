@@ -5,7 +5,7 @@
 @section('content')
     <div class="bannerContents">
         <div class="bannerReturn">
-            <a href="{{ route('admin.show.top') }}">←戻る</a>
+            <a href="{{ route('admin.show.top') }}" class="bannerReturn_a">←戻る</a>
         </div>
 
         <h1 class="bannerTitle">バナー管理</h1>
@@ -13,12 +13,14 @@
         <div class="bannerForm">
             <form action="{{ route('admin.exe.banner.edit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                
-                <!-- 削除するバナーIDを送信するための非表示フィールド -->
-                <input type="hidden" id="delete-banner-ids" name="delete_banner_ids" value="[]">
-                <input type="hidden" id="last-index" name="last_index" value="">
 
-                <div id="banner-list" class="bannerList"></div>
+                <div class="bannerFormPic">
+                    <!-- 削除するバナーIDを送信するための非表示フィールド -->
+                    <input type="hidden" id="delete-banner-ids" name="delete_banner_ids" value="[]">
+                    <input type="hidden" id="last-index" name="last_index" value="">
+
+                    <div id="banner-list" class="bannerList"></div>
+                </div>
 
                 <!-- 追加ボタン -->
                 <button type="button" id="add-banner" class="bannerAdd">+</button><br>
@@ -66,8 +68,9 @@
                 // HTML変数に行を格納
                 const HTML = `
                     <div class="bannerRow" data-id="${index}">
-                        <img src="${image}" alt="banner image" class="bannerImage" width="100">
-                        <input type="file" name="banners[${index}][image]" class="bannerFile">
+                        <img src="${image}" alt="banner image" class="bannerImage">
+                        <label for="customFile${index}" class="customFileLabel">ファイルを選択</label>
+                        <input type="file" id="customFile${index}" name="banners[${index}][image]" class="bannerFile">
                         <input type="hidden" name="banner_id" id="bannerId">
                         <button type="button" class="bannerRemove">-</button>
                     </div>

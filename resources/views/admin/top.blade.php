@@ -4,11 +4,11 @@
 
 @section('content')
     <div class = "topContents">
-        <div class = "topName">
+        <div class = "contents">
             <!-- ログイン中のユーザーの名前を表示 -->
             <p>ユーザーネーム : {{ Auth::guard('admin')->user()->name }}</p>
         </div>
-        <div class = "topEmail">
+        <div class = "contents">
             <!-- ログイン中のユーザーのメールアドレスを表示 -->
             <p>メールアドレス : {{ Auth::guard('admin')->user()->email }}</p>
         </div>

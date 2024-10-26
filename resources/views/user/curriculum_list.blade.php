@@ -4,51 +4,62 @@
 
 @section('content')
     <div class="curriculum_listRetrun">
-        <a href="#">戻る</a>
+        <a href="#" class="curriculum_listRetrun_a">←戻る</a>
     </div>
 
     <div class="curriculum_listSchedule">
         <div class="scheduleChange">
-            <div class="scheduleChangeLeft"><a href="#">◀</a></div>
+            <div class="scheduleChangeLeft"><a href="#" class="scheduleChangeLeft_a">◀</a></div>
 
             <div class="scheduleChangeView">{{ $year }}年{{ $month }}月スケジュール</div>
 
-            <div class="scheduleChangeRight"><a href="#">▶</a></div>
-
-            <div class="thisGrade" id="selectedGrade" data-grade-id="{{ $users->grade_id }}">{{ $users->grades->name }}</div>
+            <div class="scheduleChangeRight"><a href="#" class="scheduleChangeLeft_a">▶</a></div>
+            @if($users->grade_id < 10)
+                <div class="thisGrade thisGradeLow" id="selectedGrade" data-grade-id="{{ $users->grade_id }}">{{ $users->grades->name }}</div>
+            @else
+            <div class="thisGrade thisGradeHigh" id="selectedGrade" data-grade-id="{{ $users->grade_id }}">{{ $users->grades->name }}</div>
+            @endif
         </div>
 
-        <div class="scheduleView">
-            <ul class="scheduleViewList">
-                @foreach($grades as $grade)
-                    <li>
-                        <a href="#" class="gradeLink" data-grade-id="{{ $grade->id }}"
-                            @if($grade->id > $users->grade_id) style="pointer-events: none; color: gray;" @endif
-                        >
-                            {{ $grade->name }}
-                        </a>
-                    </li>
+        <div class="scheduleViewMain">
+            <div class="scheduleView">
+                <ul class="scheduleViewList">
+                    @foreach($grades as $grade)
+                        <li class="scheduleViewListLi">
+                            @if($grade->id < 10)
+                                <a href="#" class="gradeLink gradeLinkLow" data-grade-id="{{ $grade->id }}">
+                                <!-- @if($grade->id > $users->grade_id) style="pointer-events: none; color: gray;" @endif -->
+                                    {{ $grade->name }}
+                                </a>
+                            @else
+                                <a href="#" class="gradeLink gradeLinkHigh" data-grade-id="{{ $grade->id }}">
+                                <!-- @if($grade->id > $users->grade_id) style="pointer-events: none; color: gray;" @endif -->
+                                    {{ $grade->name }}
+                                </a>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
+            <div class="scheduleMain">
+                <!-- 初期スケジュールデータ -->
+                @foreach($curriculums as $curriculum)
+                    <div class="curriculumItem">
+                        <img src="{{ asset('/storage/app/public/images/curriculum_list/' . $curriculum->thumbnail . '.jpg') }}" alt="Thumbnail">
+                        <p>{{ $curriculum->title }}</p>
+                        @if($curriculum->deliveryTimes->isEmpty())
+                            <p>表示項目がありません</p>
+                        @else
+                            <div class="deliveryTimes">
+                                @foreach($curriculum->deliveryTimes as $deliveryTime)
+                                    <p>{{ \Carbon\Carbon::parse($deliveryTime->delivery_from)->format('n月j日 H:i') }} - {{ \Carbon\Carbon::parse($deliveryTime->delivery_to)->format('H:i') }}</p>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
                 @endforeach
-            </ul>
-        </div>
-
-        <div class="scheduleMain">
-            <!-- 初期スケジュールデータ -->
-            @foreach($curriculums as $curriculum)
-                <div class="curriculumItem">
-                    <img src="{{ asset('storage/images/curriculum_list/' . $curriculum->thumbnail . '.jpg') }}" alt="Thumbnail">
-                    <p>{{ $curriculum->title }}</p>
-                    @if($curriculum->deliveryTimes->isEmpty())
-                        <p>表示項目がありません</p>
-                    @else
-                        <div class="deliveryTimes">
-                            @foreach($curriculum->deliveryTimes as $deliveryTime)
-                                <p>{{ \Carbon\Carbon::parse($deliveryTime->delivery_from)->format('n月j日 H:i') }} - {{ \Carbon\Carbon::parse($deliveryTime->delivery_to)->format('H:i') }}</p>
-                            @endforeach
-                        </div>
-                    @endif
-                </div>
-            @endforeach
+            </div>
         </div>
     </div>
 
@@ -171,7 +182,7 @@
 
                         scheduleHtml += `
                             <div class="curriculumItem">
-                                <img src="/EducationSystem/public/storage/images/curriculum_list/${curriculum.thumbnail}.jpg" alt="Thumbnail">
+                                <img src="/EducationSystem/storage/app/public/images/curriculum_list/${curriculum.thumbnail}" alt="Thumbnail" class="Thumbnail">
                                 <p>${curriculum.title}</p>
                                 <div class="deliveryTimes">${deliveryTimesHtml}</div>
                             </div>

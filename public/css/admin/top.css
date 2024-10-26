@@ -1,0 +1,11 @@
+.topContents {
+    text-align: center;
+    margin: 40px 300px;
+    color: gray;
+    border: 1px solid gray;
+}
+
+.contents {
+    text-align: left;
+    margin-left: 40px;
+}

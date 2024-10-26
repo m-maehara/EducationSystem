@@ -4,25 +4,28 @@
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'デフォルトタイトル')</title>
+    <link rel="stylesheet" href="{{ asset('css/user/head.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user/curriculum_list.css') }}">
 </head>
 <body>
     <div class = "publicLayouts">  
-        <div>
+        <div class="publicLayouts_a">
             <div class = "publicClassManagement">
-                <a href="#">時間割</a>
+                <a href="#" class="a">時間割</a>
             </div>
             <div class = "publicNoticeManagement">
-                <a href="#">授業進捗</a>
+                <a href="#" class="a">授業進捗</a>
             </div>
             <div class = "publicBannerManagement">
-                <a href="#">プロフィール設定</a>
+                <a href="#" class="a">プロフィール設定</a>
             </div>
         </div>
         
         <div class = "logout">
             <form action="#" method="post" class = "form">
-            @csrf
-            <button type="submit">ログアウト</button>         
+                @csrf
+                <button type="submit" class="logout_button">ログアウト</button>      
+            </form>   
         </div>
     </div>
     

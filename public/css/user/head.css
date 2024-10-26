@@ -1,0 +1,36 @@
+.publicLayouts {
+    background-color: #FF773E; 
+    height: 100px;
+    display: flex;
+}
+
+.publicLayouts_a {
+    padding-top: 30px;
+    margin-left: 20px;
+    display: flex;
+}
+
+.a {
+    background-color: #00a3a3;
+    padding: 5px 5px;
+    margin-right: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    display: inline-block; 
+    white-space: nowrap;
+    border-radius: 7px;
+}
+
+.logout {
+    text-align: right;
+    padding-top: 40px;
+    padding-left: 840px;
+}
+
+.logout_button {
+    background: none;
+    border: none; 
+    color: black;
+    font-size: 20px;
+}
