@@ -18,7 +18,7 @@ class LoginController extends Controller
     public function exeLoginForm(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'max:255' , 'regex:/^[a-zA-Z0-9@]+$/'],
+            'email' => ['required', 'max:255' , 'regex:/^[a-zA-Z0-9@.]+$/'],
             'password' => ['required', 'min:8' , 'regex:/^[a-zA-Z0-9]+$/'],
         ],[
             'email.required' => 'メールアドレスは入力必須項目です',

@@ -18,7 +18,7 @@ class RegisterController extends Controller
         $request->validate([
             'name' =>  ['required', 'max:255'],
             'kana' => ['required', 'max:255'],
-            'email' => ['required', 'max:255' , 'regex:/^[a-zA-Z0-9@]+$/'],
+            'email' => ['required', 'max:255' , 'regex:/^[a-zA-Z0-9@.]+$/'],
             'password' => ['required', 'min:8' , 'max:255' , 'regex:/^[a-zA-Z0-9]+$/'],
             'passconf' => ['required' , 'same:password'],
         ],[
