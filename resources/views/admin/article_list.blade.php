@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-{{-- @extends('admin.layouts.app') --}}
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
+@extends('admin.layouts.app')
     <link rel="stylesheet" href="{{ asset('css/article_list.css') }}">
-    <title>Home</title>
-</head>
 
-<body>
-
+@section('content')
 <div class='container'>
-    <a href="{{ route('admin.show.top') }}" class="return">←戻る</a>
+    <a href="{{ route('admin.show.top') }}" class='return'>←戻る</a>
 
-    <h1>お知らせ一覧</h1>
+    <h1 class='title'>お知らせ一覧</h1>
     <a href="{{ route('admin.show.article.create') }}" class="btn btn-primary btn-sm mx-1">新規登録</a>
 
     <div class="products mt-5">
@@ -29,11 +23,10 @@
                     <td>{{$article->posted_date}}</td>
                     <td>{{$article->title}}</td>
                     <td><a href="/article_edit/{{$article->id}}" class="btn btn-primary btn-sm mx-1">変更する</a>
-                    <form id="delete-form" method="POST" action="{{ route('admin.destroy.article',['id'=>$article->id]) }}" 
-                    class="d-inline" >
+                    <form method="POST" action="{{route('admin.destroy.article',$article->id)}}">
                             @csrf
-                            @method('POST')
-                            <input data-article_id="{{$article->id}}" type="button" class="btn btn-danger btn-sm mx-1" value="削除">
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm mx-1">削除</button>
                         </form>
                     </td>
                 </tr>
@@ -43,4 +36,4 @@
     </div>
 </div>
 
-</body>
+@endsection

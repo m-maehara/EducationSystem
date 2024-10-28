@@ -35,13 +35,13 @@ Route::prefix('user')->namespace('User')->name('user.')->group(function () {
 });
 
 //管理画面
-Route::prefix('user')->namespace('Admin')->name('admin.')->group(function () {
+Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('show.login');
     Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('show.register');
     Route::get('/top', [TopController::class, 'showTop'])->name('show.top');
     Route::get('/banner_edit', [BannerController::class, 'showBannerEdit'])->name('show.edit');
     Route::get('/article_list', [App\Http\Controllers\Admin\ArticleController::class, 'showArticleList'])->name('show.article.list');
-    Route::post('/destroy/{id}', [App\Http\Controllers\Admin\ArticleController::class, 'destroyArticle'])->name('destroy.article');
+    Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\ArticleController::class, 'destroyArticle'])->name('destroy.article');
     Route::get('/article_create', [App\Http\Controllers\Admin\ArticleController::class, 'showArticleCreate'])->name('show.article.create');
     Route::get('/article_edit/{id}', [App\Http\Controllers\Admin\ArticleController::class, 'showArticleEdit'])->name('show.article.edit');
 });
