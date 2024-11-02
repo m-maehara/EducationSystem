@@ -69,45 +69,4 @@ class Banner extends Model
             ]);
         }
     }
-
-
-
-
-
-    // // バナー画像を編集
-    // public static function updateBanner($bannerData, $index)
-    // {
-    //     if (isset($bannerData['image'])) {
-    //         $image = $bannerData['image'];
-
-    //         // 画像を保存する
-    //         $path = $image->storeAs('public/images/banner', $image->getClientOriginalName());
-
-    //         $imagePath = 'storage/images/banner/' . $image->getClientOriginalName();
-
-    //         // バナーを更新
-    //         self::where('id', $index)->update([
-    //             'image' => $imagePath,
-    //         ]);
-    //     }
-    // }
-
-    // // バナーを追加
-    // public static function addBanner($bannerData)
-    // {
-    //     if (isset($bannerData['image'])) {
-    //         $image = $bannerData['image'];
-
-    //         // 画像を保存する
-    //         $path = $image->storeAs('public/images/banner', uniqid() . '_' . $image->getClientOriginalName());
-
-    //         $imagePath = 'storage/images/banner/' . $image->getClientOriginalName();
-
-    //         // データベースに新しいバナーを作成
-    //         self::create([
-    //             'image' => $imagePath,
-    //         ]);
-    //     }
-    // }
-
 }

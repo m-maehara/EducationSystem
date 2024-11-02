@@ -19,13 +19,14 @@ class LoginController extends Controller
     {
         $request->validate([
             'email' => ['required', 'max:255' , 'regex:/^[a-zA-Z0-9@.]+$/'],
-            'password' => ['required', 'min:8' , 'regex:/^[a-zA-Z0-9]+$/'],
+            'password' => ['required', 'min:8' ,'max:255', 'regex:/^[a-zA-Z0-9]+$/'],
         ],[
             'email.required' => 'メールアドレスは入力必須項目です',
             'email.max' => 'メールアドレスは255文字以内で入力してください',
             'email.regex' => 'メールアドレスは半角で入力してください',
             'password.required' => 'パスワードは入力必須項目です',
             'password.min' => 'パスワードは8文字以上で入力してください',
+            'password.max' => 'メールアドレスは255文字以内で入力してください',
             'password.regex' => 'パスワードは半角で入力してください',
         ]);
         
