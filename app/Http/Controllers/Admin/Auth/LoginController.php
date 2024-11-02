@@ -33,11 +33,10 @@ class LoginController extends Controller
         $password = $request->input('password');
         
         if (Admin::attemptLogin($email, $password)) {
-            //dd($email, $password,Admin::where('email', $email)->first()->id);
-            return redirect()->route('admin.show.top')->with('success', 'ログインに成功しました');
+            return redirect()->route('admin.show.top');
         }
 
-        return redirect()->back()->withErrors(['email' => '認証に失敗しました。']);
+        return redirect()->back();
     }
 
     public function logout()

@@ -37,15 +37,12 @@ class BannerController extends Controller
             // bannersにデータがあるかを確認
             if($banners){
                 foreach ($banners as $key => $file) {
-                    // バナーIDを取得
-                    $bannersId = $request->input('banner_id');
-                    // dd($lastIndex);
                     // 既存のバナーと追加のバナーで分ける
                     if($key <= $lastIndex){
                         // バナーを更新する
                         Banner::updateBanner($banners, $key);
                     }else{
-                        // dd("新規");
+                        // バナーを追加する
                         Banner::addBanner($banners, $key);
                     }
                 }

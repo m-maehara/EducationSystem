@@ -35,7 +35,7 @@ Route::prefix('user')->namespace('User')->name('user.')->group(function () {
 });
 
 // 管理画面
-Route::prefix('user')->namespace('Admin')->name('admin.')->group(function () {
+Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     Route::namespace('Auth')->group(function () {
         // 新規ユーザー登録画面
         Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('show.register');

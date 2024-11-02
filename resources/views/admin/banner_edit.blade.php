@@ -60,7 +60,7 @@
 
             // +ボタン押下で行を追加する
             $('#add-banner').on('click', function() {
-                addBannerHTML('/EducationSystem/public/user/storage/images/banner/sample.jpg');
+                addBannerHTML('storage/images/banner/sample.jpg');
             });
 
             // bannerListに行を追加するメソッド
@@ -68,7 +68,7 @@
                 // HTML変数に行を格納
                 const HTML = `
                     <div class="bannerRow" data-id="${index}">
-                        <img src="${image}" alt="banner image" class="bannerImage">
+                        <img src="/EducationSystem/public/user/${image}" alt="banner image" class="bannerImage">
                         <label for="customFile${index}" class="customFileLabel">ファイルを選択</label>
                         <input type="file" id="customFile${index}" name="banners[${index}][image]" class="bannerFile">
                         <input type="hidden" name="banner_id" id="bannerId">
@@ -105,8 +105,6 @@
                 }
             });
 
-
-
             // -ボタンで行を削除
             $(document).on('click', '.bannerRemove', function () {
                 const deleteRow = $(this).closest('.bannerRow');
@@ -121,103 +119,6 @@
                 // 行を削除
                 deleteRow.remove();
             });
-
-
-
         });
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- <script>
-        $(document).ready(function () {
-            // 初期データの取得と表示
-            const banners = @json($banners); 
-            const bannerList = $('#banner-list');
-            let deleteBannerIds = []; // 削除するバナーIDリストの初期化
-            let lastIndex = 0;
-
-            // 初期データの追加
-            banners.forEach(function(banner) {
-                addBannerRow(banner.image, banner.id, banner.id);
-                lastIndex = banner.id;
-            });
-
-            lastIndex = lastIndex + 1;
-
-            // +ボタンのクリックイベント
-            $('#add-banner').on('click', function() {
-                addBannerRow('/EducationSystem/public/user/storage/images/banner/sample.jpg');
-            });
-
-            // 行追加関数
-            function addBannerRow(image, index = lastIndex++, bannerId = null) {
-                const row = `
-                    <div class="bannerRow" data-index="${index}" data-id="${bannerId}">
-                        <img src="${image}" alt="banner image" class="bannerImage" width="100">
-                        <input type="file" name="banners[${index}][image]" class="bannerFile">
-                        <input type="hidden" name="banners[${index}]" value="${bannerId}">
-                        <button type="button" class="bannerRemove">-</button>
-                    </div>
-                `;
-                console.log(row);
-                bannerList.append(row);
-            }
-
-            // ファイル選択時に画像を変更する処理
-            $(document).on('change', '.bannerFile', function () {
-                const fileInput = $(this);
-                const bannerRow = fileInput.closest('.bannerRow');
-                const bannerId = bannerRow.data('id'); // バナーのIDを取得
-
-                const file = this.files[0]; // 選択されたファイルを取得
-                if (file) {
-                    const reader = new FileReader();
-                    
-                    // ファイルが正常に読み込まれた場合の処理
-                    reader.onload = function (e) {
-                        // プレビュー画像のsrcにData URLを設定
-                        fileInput.siblings('.bannerImage').attr('src', e.target.result);
-                    };
-
-                    // ファイルをData URLとして読み込む
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // -ボタンで行を削除
-            $(document).on('click', '.bannerRemove', function () {
-                const rowToRemove = $(this).closest('.bannerRow');
-                const bannerId = rowToRemove.data('id');
-
-                // 削除するバナーIDをリストに追加
-                deleteBannerIds.push(bannerId);
-
-                // 削除IDをフォームの非表示フィールドに反映
-                $('#delete-banner-ids').val(JSON.stringify(deleteBannerIds));
-
-                // 行を削除
-                rowToRemove.remove();
-            });
-        });
-    </script> -->
-
 @endsection

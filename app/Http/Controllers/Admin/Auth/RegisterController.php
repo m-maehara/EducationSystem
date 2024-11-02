@@ -17,7 +17,7 @@ class RegisterController extends Controller
     {
         $request->validate([
             'name' =>  ['required', 'max:255'],
-            'kana' => ['required', 'max:255'],
+            'kana' => ['required', 'max:255', 'regex:/^[ァ-ヶー0-9]+$/u'],
             'email' => ['required', 'max:255' , 'regex:/^[a-zA-Z0-9@.]+$/'],
             'password' => ['required', 'min:8' , 'max:255' , 'regex:/^[a-zA-Z0-9]+$/'],
             'passconf' => ['required' , 'same:password'],
@@ -26,6 +26,7 @@ class RegisterController extends Controller
             'name.max' => 'ユーザーネームは255文字以内で入力してください',
             'kana.required' => 'カナは入力必須項目です',
             'kana.max' => 'カナは255文字以内で入力してください',
+            'kana.regex' => 'カナは全角カタカナで入力してください',
             'email.required' => 'メールアドレスは入力必須項目です',
             'email.max' => 'メールアドレスは255文字以内で入力してください',
             'email.regex' => 'メールアドレスは半角で入力してください',

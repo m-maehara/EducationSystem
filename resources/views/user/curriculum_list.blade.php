@@ -28,12 +28,10 @@
                         <li class="scheduleViewListLi">
                             @if($grade->id < 10)
                                 <a href="#" class="gradeLink gradeLinkLow" data-grade-id="{{ $grade->id }}">
-                                <!-- @if($grade->id > $users->grade_id) style="pointer-events: none; color: gray;" @endif -->
                                     {{ $grade->name }}
                                 </a>
                             @else
                                 <a href="#" class="gradeLink gradeLinkHigh" data-grade-id="{{ $grade->id }}">
-                                <!-- @if($grade->id > $users->grade_id) style="pointer-events: none; color: gray;" @endif -->
                                     {{ $grade->name }}
                                 </a>
                             @endif
@@ -69,7 +67,8 @@
         $(document).ready(function() {
             let currentYear = new Date().getFullYear();
             let currentMonth = new Date().getMonth() + 1;
-            let selectedGradeId = $('#selectedGrade').data('grade-id'); // 初期学年IDの取得
+            let firstGradeId = $('#selectedGrade').data('grade-id');    // 初期学年IDの取得
+            let selectedGradeId = $('#selectedGrade').data('grade-id');
 
             const curriculumUrl = "{{ route('user.show.curriculum') }}";
 
@@ -77,12 +76,17 @@
             $('.gradeLink').click(function(e) {
                 e.preventDefault();
                 selectedGradeId = $(this).data('grade-id'); // 選択された学年IDを更新
-                console.log(selectedGradeId,currentYear, currentMonth,"学年変更時");
-                // 学年表示を更新
-                $('#selectedGrade').text($(this).text());
 
-                // スケジュールを再取得
-                loadSchedule(currentYear, currentMonth);
+                // 現在の学年より上の学年はクリックできないようにする
+                if(selectedGradeId <= firstGradeId){
+                    // 学年表示を更新
+                    $('#selectedGrade').text($(this).text());
+
+                    // スケジュールを再取得
+                    loadSchedule(currentYear, currentMonth);
+                }
+
+                
             });
 
             // 月変更のクリックイベント
@@ -107,7 +111,7 @@
                     currentMonth = 12;
                     currentYear--;
                 }
-                console.log(selectedGradeId,currentYear, currentMonth,"年月変更時");
+                
                 loadSchedule(currentYear, currentMonth);
             }
 
@@ -139,7 +143,7 @@
             function filterCurriculumsByMonthAndGrade(curriculums, year, month, gradeId) {
                 return curriculums.filter(curriculum => {
                     // alway_delivery_flg が 1 かつgradeIdとgrade_idが同じ場合は表示
-                    if (curriculum.alway_delivery_flg === 1 && curriculum.grade_id == gradeId) {
+                    if (curriculum.alway_delivery_flg === 1) {
                         return true; 
                     }
 
@@ -163,7 +167,6 @@
 
             // スケジュールデータを使ってscheduleMainを更新する
             function updateScheduleMain(curriculums) {
-                console.log(curriculums);
                 let scheduleHtml = '';
 
                 if (curriculums.length === 0) {
