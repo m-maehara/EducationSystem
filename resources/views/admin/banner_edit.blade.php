@@ -76,7 +76,6 @@
                     </div>
                     `;
                 bannerList.append(HTML);  // 行を追加
-                console.log(HTML);
             }
             
             // バナーテーブルにデータがあった場合
