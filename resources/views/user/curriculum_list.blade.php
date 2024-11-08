@@ -143,7 +143,7 @@
             function filterCurriculumsByMonthAndGrade(curriculums, year, month, gradeId) {
                 return curriculums.filter(curriculum => {
                     // alway_delivery_flg が 1 かつgradeIdとgrade_idが同じ場合は表示
-                    if (curriculum.alway_delivery_flg === 1) {
+                    if (curriculum.alway_delivery_flg === 1 && curriculum.grade_id == gradeId) { // 
                         return true; 
                     }
 
