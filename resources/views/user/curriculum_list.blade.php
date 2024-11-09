@@ -157,16 +157,22 @@
                         // 指定された年と月に一致する delivery_times があるか確認
                         return curriculum.delivery_times.some(time => {
                             const deliveryFrom = moment(time.delivery_from);
-                            return deliveryFrom.year() === year && deliveryFrom.month() + 1 === month;
+                            const deliveryTo = moment(time.delivery_to);
+                            const yearMonthFrom = `${deliveryFrom.year()}${String(deliveryFrom.month() + 1).padStart(2, '0')}`;
+                            const yearMonthTo = `${deliveryTo.year()}${String(deliveryTo.month() + 1).padStart(2, '0')}`;
+                            
+                            console.log(yearMonthFrom,yearMonthTo,`${year}${String(month).padStart(2, '0')}`);
+                            return yearMonthFrom <= `${year}${String(month).padStart(2, '0')}` &&
+                                `${year}${String(month).padStart(2, '0')}` <= yearMonthTo;
                         });
                     }
-
                     return false;
                 });
             }
 
             // スケジュールデータを使ってscheduleMainを更新する
             function updateScheduleMain(curriculums) {
+
                 let scheduleHtml = '';
 
                 if (curriculums.length === 0) {
@@ -179,7 +185,7 @@
                         if (Array.isArray(curriculum.delivery_times) && curriculum.delivery_times.length > 0) {
                             // delivery_times の内容をループで処理
                             curriculum.delivery_times.forEach(time => {
-                                deliveryTimesHtml += `<p>${moment(time.delivery_from).format('M月D日 H:mm')} - ${moment(time.delivery_to).format('H:mm')}</p>`;
+                                deliveryTimesHtml += `<p>${moment(time.delivery_from).format('M月D日 H:mm')} - ${moment(time.delivery_to).format('M月D日 H:mm')}</p>`;
                             });
                         } 
 
