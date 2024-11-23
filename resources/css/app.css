@@ -21,46 +21,5 @@
     height: auto;
 }
 
-.banner-slider {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    margin: auto;
-}
 
-.banner-images {
-    position: relative;
-}
 
-.banner-image {
-    width: 100%;
-    display: none;
-}
-
-.banner-image.active {
-    display: block;
-}
-
-.dots {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.dot {
-    height: 15px;
-    width: 15px;
-    margin: 0 5px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.dot:hover {
-    background-color: #999;
-}
-
-.dot.active {
-    background-color: #717171;
-}

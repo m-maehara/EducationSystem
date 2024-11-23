@@ -13,16 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('name_kana');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('profile_image')->nullable();
-            $table->unsignedBigInteger('grade_id')->nullable();
-            $table->timestamps();
-        });
+        // 既にテーブルが存在する場合は作成をスキップ
+        if (!Schema::hasTable('users')) {
+            Schema::create('users', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('name_kana');
+                $table->string('email')->unique();
+                $table->string('password');
+                $table->string('profile_image')->nullable();
+                $table->unsignedBigInteger('grade_id')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
