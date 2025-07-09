@@ -10,9 +10,9 @@ class ArticleController extends Controller
 {
     public function showArticle($id){
 
-        //$article = Article::find($id);
+        $article = Article::find($id);
 
-        return view('user.article');
-
+        return view('user.article',
+        ['article' => $article]);
     }
 }

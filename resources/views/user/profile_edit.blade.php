@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 @extends('user.layouts.app')
 
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('css/profile_edit.css') }}">
 
 @section('content')
 <div class='container'>
-    <a href="{{ route('user.show.top') }}" class="return">←戻る</a>
+    <a href="#" class="return">←戻る</a>
     <h1>プロフィール変更</h1>
 
-    <div>
-        <form method="POST" action="{{ route=() }}" enctype="multipart/form-data">
+    <div class="edit_form">
+        <form method="POST" action="{{route('user.update.profile')}}" enctype="multipart/form-data">
         @csrf
         @method('POST')
-        <input type="hidden" name="id" value="{{$user->id}}">
-        <div class="mb-3">
-            <img src="{{ asset($user->profile_image) }}" alt="プロフィール画像" class="">
-            <label for="" class="form-label">プロフィール画像</label>
-            <input id="" type="file" name="image" class="" >
+        <div class="profile_image">
+            <img src="{{asset('/storage/' . $user->profile_image)}}" alt="プロフィール画像">
+            <div class="edit_image">
+               <label for="profile_image" class="form-label">プロフィール画像</label>
+               <input id="profile_image" type="file" name="image">
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="" class="form-label">ユーザーネーム</label>
-            <input id="" type="text" name="" class="" value="{{ $user->name }}" required>
-        </div>
-        <div class="mb-3">
-            <label for="" class="form-label">カナ</label>
-            <input id="" type="text" name="" class="" value="{{ $user->name_kana }}" required>
-        </div>
-        <div class="mb-3">
-            <label for="" class="form-label">メールアドレス</label>
-            <input id="" type="text" name="" class="" value="{{ $user->email }}" required>
-        </div>
-        <div class="mb-3">
-            <label for="" class="form-label">パスワード</label>
-            <a href="{{ route('show.password.edit') }}" class="btn btn-primary">パスワードを変更する</a>
-        </div>
-        <div class="mb-3">
-            <button type="submit" class="btn btn-primary">登録</button>
+        <div class="edit_info">
+            <div class="info_form">
+               <label for="name">ユーザーネーム</label>
+               <input id="name" type="text" name="name" class="" value="{{ $user->name }}" required>
+            </div>
+            <div class="info_form">
+               <label for="name_kana">カナ</label>
+               <input id="name_kana" type="text" name="name_kana" value="{{ $user->name_kana }}" required>
+            </div>
+            <div class="info_form">
+                <label for="email">メールアドレス</label>
+                <input id="email" type="text" name="email" value="{{ $user->email }}" required>
+            </div>
+            <div class="info_form">
+                <label for="password">パスワード</label>
+                <a href="{{ route('user.show.password.edit') }}" class="password">パスワードを変更する</a>
+            </div>
+            <div class="btn">
+                <button type="submit">登録</button>
+            </div>
         </div>
         </form>
     </div>

@@ -1,0 +1,90 @@
+.container {
+    max-width: 1200px;
+    font-family: sans-serif;
+}
+
+.return {
+    color: #000;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 25px;
+    margin: 0 10px 10px;
+    font-weight: 400;
+}
+
+.edit_form {
+    margin-left: 75px;
+}
+
+.profile_image {
+    display: flex;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.profile_image img {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #000;
+}
+
+.edit_image {
+    display: flex;
+    flex-flow: column;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.edit_info label {
+    display: inline-block;
+    width: 130px;
+}
+
+.password_edit label {
+    display: inline-block;
+    width: 150px;
+}
+
+.edit_info input {
+    width: 400px;
+}
+
+.password_edit input {
+    width: 500px;
+}
+
+.info_form {
+    margin-bottom: 10px;
+}
+
+.password_form {
+    margin-bottom: 30px;
+}
+
+.password {
+    color: #000;
+    text-decoration: none;
+    border: 1px solid #000;
+    padding: 0 10px;
+}
+
+.btn {
+    margin-top: 40px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.btn button {
+  background-color: #f26b4f;
+  color: white;           
+  padding: 0 50px;       
+  border: 1px solid #505050;                  
+  font-size: 16px;
+}
+
+.password_btn {
+    margin-top: 100px;
+}
+

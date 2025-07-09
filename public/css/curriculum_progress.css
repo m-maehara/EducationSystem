@@ -1,0 +1,81 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    font-family: sans-serif;
+}
+
+.return {
+    color: #000;
+    text-decoration: none;
+}
+
+.profile {
+    display: flex;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.profile img {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #000;
+}
+
+.profile_info h1,h2 {
+    font-size: 25px;
+}
+
+.current-grade {
+    background-color: #aaf0e0;
+    padding: 5px 15px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.grade_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.grade_block {
+    flex: 1 1 calc(33.333% - 20px);
+    padding: 16px;
+    box-sizing: border-box;
+    min-width: 250px;
+}
+
+.grade_name {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 14px;
+    background-color: #aaf0e0; 
+    color: #fff; 
+    border: 1px solid #000; 
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.lesson-row {
+  display: flex;
+  align-items: center;
+}
+
+.lesson_list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.badge{
+    width: 80px; 
+    display: inline-block;
+    color: red;
+}
+.lesson_title{
+    padding: 4px 0;
+    color: #000;
+    text-decoration: none;
+}

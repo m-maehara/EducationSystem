@@ -17,11 +17,60 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+
+     protected $table = 'users';
+
+     protected $fillable = [
         'name',
+        'name_kana',
         'email',
         'password',
-    ];
+        'profile_image',
+        'grade_id',
+      ];
+
+      public function getList() {
+        
+        $user = DB::table('users')->get();
+
+        return $user;
+    }
+
+    public function updateProfile(Request $request){
+
+        $request->validate([
+            'name'=>'required',
+            'name_kana'=>'required',
+            'email'=>'required',
+            'profile_image'=>'required',
+        ]);
+    }
+
+    public function updatePassword(Request $request){
+
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+    }
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
+    }
+
+    
+    public function completedLessons()
+    {
+        return $this->belongsToMany(
+            Curriculum::class,
+            'curriculum_progress', 
+            'users_id',
+            'curriculumus_id'
+        )->wherePivot('clear_flg', true)
+        ->withTimestamps();
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

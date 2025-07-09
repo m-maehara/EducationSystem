@@ -8,6 +8,7 @@ use App\Models\Article;
 
 class ArticleController extends Controller
 {
+    //お知らせ一覧画面
     public function showArticleList(){
 
         $articles = Article::all();
@@ -21,7 +22,41 @@ class ArticleController extends Controller
 
         $article = Article::find($id);
         $article->delete();
-        return redirect()->view('admin.show.article.list');
+        return redirect()->route('admin.show.article.list');
 
     }
+
+    //お知らせ新規登録画面
+    public function showArticleCreate(){
+
+        return view('admin.article_create');
+    }
+
+    public function storeArticle(Request $request){
+
+        $input = $request->all();
+        Article::create($input);
+        return redirect()->route('admin.show.article.create');
+
+    }
+
+    //お知らせ更新画面
+    public function showArticleEdit($id){
+
+        $article = Article::find($id);
+
+        return view('admin.article_edit',
+        ['article' => $article]);
+    }
+
+    public function updateArticle(Request $request,$id){
+
+        $article = Article::find($id);
+        $attributes = $request->all();
+        $article->update($attributes);
+        
+        return redirect()->route('admin.show.article.edit',['id'=>$article->id]);
+    }
+
+    
 }

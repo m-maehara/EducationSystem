@@ -1,0 +1,122 @@
+.container {
+    max-width: 1200px;
+    font-family: sans-serif;
+}
+
+.return {
+    color: #000;
+    text-decoration: none;
+}
+
+.article_block {
+    margin: 40px 50px ;
+}
+
+.article_date {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.article_title {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.article_area {
+    margin-left: 20px;
+}
+
+.article_area h1 {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.create_btn {
+    background-color: #3f95a0;
+    color: white;           
+    padding: 5px 20px;       
+    border: 1px solid #505050;   
+    border-radius: 5px;               
+    font-size: 12px;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+.article_list {
+    margin: 30px 20px;
+}
+
+.article_list th {
+    text-align: left;
+    font-weight: 500;
+}
+
+.article_list td {
+    padding-right: 40px;
+    padding-bottom: 20px;
+}
+
+.action_btn {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.edit_btn {
+    background-color: #1a8a93;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border: 1px solid #505050; 
+    border-radius: 4px;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.delete_btn {
+    background-color: #e60000;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border: 1px solid #505050; 
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.article_form {
+    display: flex;
+    margin: 30px 20px;
+}
+
+.article_form label {
+    width: 100px;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.article_form input,
+.article_form textarea {
+    width: 500px;
+}
+
+.article_form textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.submit_btn {
+    margin-top: 80px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.submit_btn button {
+  background-color: #555;
+  color: white;           
+  padding: 0 50px;       
+  border: 1px solid #505050;                  
+  font-size: 16px;
+}

@@ -1,25 +1,17 @@
 <!DOCTYPE html>
-{{-- @extends('user.layouts.app') --}}
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <title>Home</title>
-</head>
+ @extends('user.layouts.app')
 
-<body>
-<a href="{{ route('user.show.profile') }}" class="return">←戻る</a>
-</body>
+<link rel="stylesheet" href="{{ asset('css/article.css') }}">
 
-{{-- 
 @section('content')
 <div class='container'>
-    <a href="{{ route('user.show.top') }}" class="return">←戻る</a>
-    <h2 class="article_date">{{ $articles->posted_date }}</h2>
-    <h1 class="article_title">{{ $articles->title }}</h1>
-    <p class="article_contents">{{ $articles->article_contents }}</p>
+    <a href="#" class="return">←戻る</a>
+    <div class='article_block'>
+      <h2 class="article_date">{{ \Carbon\Carbon::parse($article->posted_date)->format('Y年n月j日') }}</h2>
+      <h1 class="article_title">{{ $article->title }}</h1>
+      <p class="article_contents">{{ $article->article_contents }}</p>
+    </div>
 </div>
 @endsection
---}}
 
 </html>

@@ -23,4 +23,41 @@ class Article extends Model
 
         return $article;
     }
+
+    public function storeArticle(Request $request){
+
+        $request->validate([
+
+            'title'=>'required',
+            'posted_date'=>'required',
+            'article_contents'=>'required',
+
+        ]);
+
+        $article = new Article([
+
+            'title' => $request->get('title'),
+            'posted_date' => $request->get('posted_date'),
+            'article_contents' => $request->get('article_contents'),
+
+        ]);
+
+    }
+
+    public function updateArticle(Request $request, $id){
+
+        $request->validate([
+
+            'title'=>'required',
+            'posted_date'=>'required',
+            'article_contents'=>'required',
+
+        ]);
+
+        
+
+
+    }
+
+
 }
