@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use app\Models\user;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\ProfileRequest;
+use App\Http\Requests\PasswordRequest;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -19,11 +22,18 @@ class ProfileController extends Controller
 
     }
 
-    public function updateProfile(Request $request){
+    public function updateProfile(ProfileRequest $request){
 
-        $user = User::all();
-        $attributes = $request->all();
-        $user->update($attributes);
+        $user = Auth::user();
+        DB::beginTransaction();
+        try {
+           $attributes = $request->all();
+           $user->update($attributes);
+           DB::commit();
+           } catch (\Exception $e) {
+           DB::rollBack();
+           return back()->withErrors(['error' => 'プロフィールの更新に失敗しました。']);
+           }
         
         return redirect()->route('user.show.profile.edit');
     }
@@ -35,7 +45,7 @@ class ProfileController extends Controller
 
     }
 
-    public function updatePassword(Request $request){
+    public function updatePassword(PasswordRequest $request){
 
         $user = Auth::user();
 
@@ -43,11 +53,17 @@ class ProfileController extends Controller
             return back()->withErrors(['current_password' => '現在のパスワードが正しくありません。']);
         }
 
-        $user->update([
+        DB::beginTransaction();
+        try {
+           $user->update([
             'password' => Hash::make($request->new_password),
-        ]);
-
-        return redirect()->route('user.show.password.edit')->with('success', 'パスワードを更新しました！');
+            ]);
+           DB::commit();
+           return redirect()->route('user.show.password.edit')->with('success', 'パスワードを更新しました！');
+          } catch (\Exception $e) {
+           DB::rollBack();
+           return back()->withErrors(['error' => 'パスワードの更新に失敗しました。']);
+    }
 
     }
 }

@@ -1,8 +1,6 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px;
-    font-family: sans-serif;
 }
 
 .return {
@@ -13,6 +11,7 @@
 .profile {
     display: flex;
     text-align: left;
+    margin-top: 10px;
     margin-bottom: 40px;
 }
 
@@ -20,6 +19,7 @@
     width: 100px;
     height: 100px;
     border: 1px solid #000;
+    margin-right: 10px;
 }
 
 .profile_info h1,h2 {

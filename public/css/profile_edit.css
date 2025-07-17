@@ -37,30 +37,36 @@ h1 {
     font-size: 18px;
 }
 
-.edit_info label {
-    display: inline-block;
-    width: 130px;
-}
-
-.password_edit label {
-    display: inline-block;
-    width: 150px;
-}
-
-.edit_info input {
-    width: 400px;
-}
-
-.password_edit input {
-    width: 500px;
-}
-
 .info_form {
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
 }
 
+.info_form label {
+    width: 130px;
+    margin-right: 10px;
+}
+
+.info_form input {
+    width: 400px;
+    margin-right: 10px;
+}
+
 .password_form {
+    display: flex;
+    align-items: center;
     margin-bottom: 30px;
+}
+
+.password_form label{
+    width: 150px;
+    margin-right: 10px;
+}
+
+.password_form input {
+    width: 500px;
+    margin-right: 10px;
 }
 
 .password {

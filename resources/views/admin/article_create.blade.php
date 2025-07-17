@@ -13,17 +13,26 @@
         @csrf
         <div class="article_form">
             <label for="posted_date" class="form-label">投稿日時</label>
-            <input id="posted_date" type="text" name="posted_date" required>
+            <input id="posted_date" type="text" name="posted_date">
+            @if($errors->has('posted_date'))
+               <p>{{ $errors->first('posted_date') }}</p>
+            @endif
         </div>
 
         <div class="article_form">
             <label for="title" class="form-label">タイトル</label>
-            <input id="title" type="text" name="title" required>
+            <input id="title" type="text" name="title">
+             @if($errors->has('title'))
+               <p>{{ $errors->first('title') }}</p>
+            @endif
         </div>
     
         <div class="article_form">
             <label for="article_contents" class="form-label">本文</label>
-            <textarea id="article_contents" name="article_contents" required></textarea>
+            <textarea id="article_contents" name="article_contents"></textarea>
+            @if($errors->has('article_contents'))
+               <p>{{ $errors->first('article_contents') }}</p>
+            @endif
         </div>
 
         <div class="submit_btn">
