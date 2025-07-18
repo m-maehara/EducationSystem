@@ -14,9 +14,8 @@ class ProgressController extends Controller
     public function showProgress()
 {
     $user = Auth::user();
-    $grade = Grade::pluck('name')->toArray();
-    $currentGradeName = $user->grade?->name ?? '未設定'; 
-    $currentGradeIndex = array_search($currentGradeName, $grade);
+    $grades = Grade::orderBy('id')->get();
+    
 
     $completedLessons = $user->completedLessons()->pluck('curriculumus_id')->toArray();
     
@@ -25,19 +24,19 @@ class ProgressController extends Controller
     $lessons = [];
     $lessonsPerGrade = 5;
 
-    foreach ($grade as $gradeIndex => $gradeName) {
+    foreach ($grades as $grade) {
+         $curriculums = Curriculum::where('grade_id', $grade->id)->get();
         $gradeLessons = [];
-        for ($i = 1; $i <= $lessonsPerGrade; $i++) {
-            $lessonId = $gradeIndex * $lessonsPerGrade + $i;
+        foreach ($curriculums as $curriculum) {
             $gradeLessons[] = [
-                'title' => "授業タイトル",
-                'completed' => in_array($lessonId, $completedLessons),
-                'disabled' => $gradeIndex > $currentGradeIndex,
+                'title' => $curriculum->title, // ← ここでタイトルを取得
+                'completed' => in_array($curriculum->id, $completedLessons),
+                'disabled' => $grade->id > $user->grade_id,
             ];
         }
 
         $lessons[] = [
-            'grade_name' => $gradeName,
+            'grade_name' => $grade->name,
             'lessons' => $gradeLessons,
         ];
     }
